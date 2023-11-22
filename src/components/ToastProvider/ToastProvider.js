@@ -1,4 +1,5 @@
 import React from 'react';
+import useEscapeKey from '../../hooks/useEscapeKey'
 
 export const ToastContext = React.createContext();
 
@@ -12,8 +13,11 @@ function ToastProvider({ children }) {
   }, [toastList]);
 
   const clearToasts = React.useCallback(() => {
+    console.log('oi')
     setToastList([])
   }, []);
+
+  useEscapeKey(clearToasts)
 
 
   const addToast = React.useCallback((newToast) => {
@@ -21,7 +25,7 @@ function ToastProvider({ children }) {
   }, []);
 
 
-  const state = { removeToast, toastList, addToast, clearToasts }
+  const state = { removeToast, toastList, addToast }
 
   return <ToastContext.Provider value={state}>
     {children}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Button from '../Button';
 import { ToastContext } from '../ToastProvider';
@@ -11,7 +11,7 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 function ToastPlayground() {
   const [message, setMessage] = React.useState('');
   const [variantCheck, setVariantCheck] = React.useState('notice');
-  const { addToast, clearToasts } = React.useContext(ToastContext)
+  const { addToast } = React.useContext(ToastContext)
 
   function popToast(event) {
     event.preventDefault();
@@ -23,16 +23,6 @@ function ToastPlayground() {
       message,
     });
   }
-
-  useEffect(() => {
-    function onKeyDown(event) {
-      if (event.key !== 'Escape') return
-      clearToasts()
-    }
-    window.addEventListener('keydown', onKeyDown)
-
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [clearToasts])
 
   return (
     <div className={styles.wrapper}>
