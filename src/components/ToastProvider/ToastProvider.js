@@ -11,13 +11,17 @@ function ToastProvider({ children }) {
     setToastList(newList.filter(toast => toast.id !== id))
   }, [toastList]);
 
+  const clearToasts = React.useCallback(() => {
+    setToastList([])
+  }, []);
+
 
   const addToast = React.useCallback((newToast) => {
-    setToastList([...toastList, newToast])
-  }, [toastList]);
+    setToastList((list) => [...list, newToast])
+  }, []);
 
 
-  const state = { removeToast, toastList, addToast }
+  const state = { removeToast, toastList, addToast, clearToasts }
 
   return <ToastContext.Provider value={state}>
     {children}
